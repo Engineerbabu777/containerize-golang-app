@@ -1,14 +1,21 @@
-package main;
-
+package main
 
 import (
-	"log"
 	"fmt"
-	"net/http"
 	"html"
+	"net/http"
 )
 
+func main() {
 
-func main(){
-	
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "hello, %q", html.EscapeString(r.URL.Path))
+
+	})
+
+	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "hi, %q", html.EscapeString(r.URL.Path))
+	})
+
+	http.ListenAndServe(":8080", nil);
 }
